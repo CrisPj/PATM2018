@@ -1,5 +1,6 @@
 package com.pythonteam.databases;
 
+import com.pythonteam.models.Job;
 import com.pythonteam.models.User;
 
 import java.sql.Connection;
@@ -28,4 +29,23 @@ public class UserHandler implements BaseHandler<User> {
         }
         return users;
     }
+
+    @Override
+    public User findOne(int id) throws SQLException {
+        String sql = "select * from user where id = '"+id+"';";
+        try (Connection conn = Database.getConnection())
+        {
+            NamedParameterStatement nps = new NamedParameterStatement(conn, sql);
+            ResultSet rs = nps.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                return user;
+            }
+        }
+        return null;
+    }
+
 }

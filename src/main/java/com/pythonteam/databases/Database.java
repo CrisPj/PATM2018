@@ -19,7 +19,7 @@ public class Database {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl("jdbc:mysql://localhost:3306/cursos");
         config.setUsername("root");
-        config.setPassword("password");
+        config.setPassword("123");
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");

@@ -6,4 +6,5 @@ import java.util.List;
 public interface BaseHandler<T> {
 
     List<T> findAll() throws SQLException;
+    T findOne(int id) throws SQLException;
 }
