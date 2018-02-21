@@ -31,3 +31,11 @@ create table employee(
 insert into employee(name,paternalName,maternalName,birthday,email, jobId, userId) VALUES ('Mark Anthony','Arreguin','Gonzalez','2008-7-04','ceo@opal.com',1,1);
 insert into employee(name,paternalName,maternalName,birthday,email, jobId, userId) VALUES ('Richy','Gallegos','Gallegos','2008-7-04','dto@opal.com',2,2);
 insert into employee(name,paternalName,maternalName,birthday,email, jobId, userId) VALUES ('Cristian','Perez',':v','2008-7-04','mochilas@opal.com',3,3);
+
+create TABLE token(
+  id int PRIMARY KEY AUTO_INCREMENT not null,
+  token VARCHAR(200) not null
+);
+
+
+

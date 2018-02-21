@@ -35,7 +35,22 @@ public class EmployeeHandler implements BaseHandler<Employee> {
     }
 
     @Override
-    public Employee findOne(int id) {
+    public Employee findOne(int id) throws SQLException {
         return null;
+    }
+
+    @Override
+    public boolean delete(int id) throws SQLException {
+        return true;
+    }
+
+    @Override
+    public Employee update(Employee employee) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public boolean create(Employee employee) throws SQLException {
+        return true;
     }
 }

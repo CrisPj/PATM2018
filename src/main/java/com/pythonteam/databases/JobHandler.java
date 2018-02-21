@@ -44,4 +44,19 @@ public class JobHandler implements BaseHandler<Job>  {
         }
         return null;
     }
+
+    @Override
+    public boolean delete(int id) throws SQLException {
+        return true;
+    }
+
+    @Override
+    public Job update(Job job) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public boolean create(Job job) throws SQLException {
+        return true;
+    }
 }

@@ -1,6 +1,5 @@
 package com.pythonteam.databases;
 
-import com.pythonteam.models.Job;
 import com.pythonteam.models.User;
 
 import java.sql.Connection;
@@ -46,6 +45,21 @@ public class UserHandler implements BaseHandler<User> {
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean delete(int id) throws SQLException {
+        return true;
+    }
+
+    @Override
+    public User update(User user) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public boolean create(User user) throws SQLException {
+        return true;
     }
 
 }
