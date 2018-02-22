@@ -1,0 +1,17 @@
+group 'com.pythonteam'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.25.1'
+    compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.2.1'
+    compile group: 'com.zaxxer', name: 'HikariCP', version: '2.7.6'
+}
