@@ -46,10 +46,21 @@ create table company(
   description varchar(100)
 );
 
+insert into company(company, address, description) VALUES ('Ecorp','Calle mala 1','Compania');
+insert into company(company, address, description) VALUES ('Ecorp 2','Calle lomas turbas 1','Compania');
+insert into company(company, address, description) VALUES ('Ecorp 3','Calle sacarias blanco 1','Compania');
+insert into company(company, address, description) VALUES ('Ecorp 4','Calle tejeringo el chico 1','Compania');
+
 create table teacher(
   id int PRIMARY KEY AUTO_INCREMENT not null,
   name VARCHAR(100) not null
 );
+
+insert into teacher(name) VALUES ('randall');
+insert into teacher(name) VALUES ('ergigi');
+insert into teacher(name) VALUES ('celso pina');
+insert into teacher(name) VALUES ('luis laredo');
+insert into teacher(name) VALUES ('juam pecados');
 
 create table course(
   id int PRIMARY KEY AUTO_INCREMENT not null,
@@ -58,19 +69,34 @@ create table course(
   hours int not null
 );
 
-create table course_teacher(
-  idCourse int REFERENCES course(id) not null,
-  idTeacher int REFERENCES teacher(id) not null,
+INSERT INTO course(course, description, hours) VALUES ('inglish','nose',20);
+INSERT INTO course(course, description, hours) VALUES ('lenguajes de interfaz','nose',20);
+INSERT INTO course(course, description, hours) VALUES ('sistemas programables','nose',20);
+INSERT INTO course(course, description, hours) VALUES ('topicos de bd','nose',20);
+INSERT INTO course(course, description, hours) VALUES ('moviles','nose',20);
+
+create table courseTeacher(
+  idCourse int REFERENCES course(id),
+  idTeacher int REFERENCES teacher(id),
   startDate date not null,
-  endDate date not null
+  endDate date not null,
+  PRIMARY KEY (idCourse,idTeacher)
 );
+
+INSERT into courseTeacher(idCourse, idTeacher, startDate, endDate) VALUES (1,1,'2018-02-10','2018-03-11');
+INSERT into courseTeacher(idCourse, idTeacher, startDate, endDate) VALUES (2,2,'2018-02-10','2018-03-11');
+INSERT into courseTeacher(idCourse, idTeacher, startDate, endDate) VALUES (3,3,'2018-02-10','2018-03-11');
+INSERT into courseTeacher(idCourse, idTeacher, startDate, endDate) VALUES (4,4,'2018-02-10','2018-03-11');
+INSERT into courseTeacher(idCourse, idTeacher, startDate, endDate) VALUES (5,5,'2018-02-10','2018-03-11');
 
 create table history(
-  idCourse int REFERENCES course(id) not null,
-  idEmpleado int REFERENCES employee(id) not null,
-  grade int not null
+  idCourse int REFERENCES course(id),
+  idEmpleado int REFERENCES employee(id),
+  grade int not null,
+  PRIMARY KEY (idCourse, idEmpleado)
 );
 
+INSERT into history(idCourse, idEmpleado, grade) VALUES (1,1,100);
 
 
 
