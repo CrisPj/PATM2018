@@ -39,5 +39,38 @@ create TABLE token(
   token VARCHAR(200) not null
 );
 
+create table company(
+  id int PRIMARY KEY AUTO_INCREMENT not null,
+  company VARCHAR(100) not null,
+  address VARCHAR(200) not null,
+  description varchar(100)
+);
+
+create table teacher(
+  id int PRIMARY KEY AUTO_INCREMENT not null,
+  name VARCHAR(100) not null
+);
+
+create table course(
+  id int PRIMARY KEY AUTO_INCREMENT not null,
+  course VARCHAR(100) not null,
+  description VARCHAR(100) not null,
+  hours int not null
+);
+
+create table course_teacher(
+  idCourse int REFERENCES course(id) not null,
+  idTeacher int REFERENCES teacher(id) not null,
+  startDate date not null,
+  endDate date not null
+);
+
+create table history(
+  idCourse int REFERENCES course(id) not null,
+  idEmpleado int REFERENCES employee(id) not null,
+  grade int not null
+);
+
+
 
 
