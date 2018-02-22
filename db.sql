@@ -1,6 +1,8 @@
+DROP TABLE user;
+
 CREATE TABLE user (
   id int PRIMARY KEY auto_increment not null,
-  username VARCHAR(30),
+  username VARCHAR(30) UNIQUE ,
   password VARCHAR(150)
 );
 

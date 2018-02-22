@@ -39,6 +39,9 @@ public class UsersService implements ServiceInterface<User> {
     @Override
     public Response read(int id) {
         try {
+            User user = new UserHandler().findOne(id);
+            if (user == null)
+                return Response.status(Response.Status.NOT_FOUND).build();
             return  Response.ok(new UserHandler().findOne(id), MediaType.APPLICATION_JSON).build();
         } catch (SQLException e) {
             e.printStackTrace();

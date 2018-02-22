@@ -27,7 +27,7 @@ public class TokenHandler implements BaseHandler<Token>{
     }
 
     @Override
-    public boolean create(Token token) throws SQLException {
+    public boolean create(Token token) {
         return true;
     }
 }

@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UserHandler implements BaseHandler<User> {
     @Override
@@ -19,12 +20,9 @@ public class UserHandler implements BaseHandler<User> {
              ResultSet rs = nps.executeQuery();
 
             while (rs.next()) {
-                User user = new User();
-                user.setId(rs.getInt("id"));
-                user.setUsername(rs.getString("username"));
-                user.setPassword(rs.getString("password"));
-                users.add(user);
+                users.add(createUser(rs));
             }
+            rs.close();
         }
         return users;
     }
@@ -38,14 +36,20 @@ public class UserHandler implements BaseHandler<User> {
             nps.setInt("id",id);
             ResultSet rs = nps.executeQuery();
             if (rs.next()) {
-                User user = new User();
-                user.setId(rs.getInt("id"));
-                user.setUsername(rs.getString("username"));
-                user.setPassword(rs.getString("password"));
-                return user;
+                User a = createUser(rs);
+                rs.close();
+                return a;
             }
         }
         return null;
+    }
+
+    private User createUser(ResultSet rs) throws SQLException {
+        User user = new User();
+        user.setId(rs.getInt("id"));
+        user.setUsername(rs.getString("username"));
+        user.setPassword(rs.getString("password"));
+        return user;
     }
 
     @Override
@@ -60,6 +64,14 @@ public class UserHandler implements BaseHandler<User> {
 
     @Override
     public boolean create(User user) throws SQLException {
+        String sql = "INSERT INTO user(username, password) VALUES (:user,:password);";
+        try (Connection conn = Database.getConnection())
+        {
+            NamedParameterStatement nps = new NamedParameterStatement(conn, sql);
+            nps.setString("user", user.getUsername());
+            nps.setString("password", user.getPassword());
+            nps.executeQuery();
+        }
         return true;
     }
 
