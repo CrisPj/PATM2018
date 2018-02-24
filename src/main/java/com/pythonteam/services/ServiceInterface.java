@@ -10,7 +10,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 
-public interface ServiceInterface<T> {
+interface ServiceInterface<T> {
 
     //crud
     @POST
@@ -26,6 +26,11 @@ public interface ServiceInterface<T> {
     @Produces(MediaType.APPLICATION_JSON)
     Response readAll();
 
-    Response update(int id);
-    Response delete(int id);
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    Response update(T t);
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    Response delete(T t);
 }

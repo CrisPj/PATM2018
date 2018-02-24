@@ -31,12 +31,13 @@ public class EmployeesService implements ServiceInterface<Employee> {
     }
 
     @Override
-    public Response update(int id) {
+    public Response update(Employee employee) {
         return null;
     }
 
     @Override
-    public Response delete(int id) {
+    public Response delete(Employee employee) {
         return null;
     }
+
 }

@@ -50,16 +50,17 @@ public class UsersService implements ServiceInterface<User> {
     }
 
     @Override
-    @PUT
-    @Path("/{id}")
-    public Response update(@PathParam("id") int id) {
-        return null;
+    public Response update(User user){
+        try {
+            return  Response.ok(new UserHandler().update(user), MediaType.APPLICATION_JSON).build();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     @Override
-    @DELETE
-    @Path("/{id}")
-    public Response delete(@PathParam("id") int id) {
+    public Response delete(User user) {
         return null;
     }
 }

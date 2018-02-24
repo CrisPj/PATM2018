@@ -12,14 +12,14 @@ public class NamedParameterStatement
 
     private final Map indexMap;
 
-    public NamedParameterStatement(Connection connection, String query) throws
+    NamedParameterStatement(Connection connection, String query) throws
             SQLException {
         indexMap=new HashMap();
         String parsedQuery=parse(query, indexMap);
         statement=connection.prepareStatement(parsedQuery);
     }
 
-    static final String parse(String query, Map paramMap) {
+    private static String parse(String query, Map paramMap) {
         int length=query.length();
         StringBuilder parsedQuery=new StringBuilder(length);
         boolean inSingleQuote=false;

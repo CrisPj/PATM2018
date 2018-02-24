@@ -2,6 +2,8 @@ package com.pythonteam.databases;
 
 import com.pythonteam.models.User;
 
+import javax.inject.Named;
+import javax.naming.Name;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +22,7 @@ public class UserHandler implements BaseHandler<User> {
              ResultSet rs = nps.executeQuery();
 
             while (rs.next()) {
-                users.add(createUser(rs));
+                users.add(fill(rs));
             }
             rs.close();
         }
@@ -36,7 +38,7 @@ public class UserHandler implements BaseHandler<User> {
             nps.setInt("id",id);
             ResultSet rs = nps.executeQuery();
             if (rs.next()) {
-                User a = createUser(rs);
+                User a = fill(rs);
                 rs.close();
                 return a;
             }
@@ -44,22 +46,29 @@ public class UserHandler implements BaseHandler<User> {
         return null;
     }
 
-    private User createUser(ResultSet rs) throws SQLException {
-        User user = new User();
-        user.setId(rs.getInt("id"));
-        user.setUsername(rs.getString("username"));
-        user.setPassword(rs.getString("password"));
-        return user;
-    }
+
 
     @Override
     public boolean delete(int id) throws SQLException {
+        String sql = "delete from user where id = :id";
+        try (Connection conn = Database.getConnection()) {
+            NamedParameterStatement nps = new NamedParameterStatement(conn,sql);
+            nps.setInt("id",id);
+            nps.executeQuery();
+        }
         return true;
     }
 
     @Override
     public User update(User user) throws SQLException {
-        return null;
+        String sql = "update user set username = :username, password = :password where id = :id";
+        try (Connection conn = Database.getConnection()) {
+            NamedParameterStatement nps = new NamedParameterStatement(conn, sql);
+            nps.setString("username",user.getUsername());
+            nps.setString("password",user.getPassword());
+            nps.setInt("id",user.getId());
+        }
+        return user;
     }
 
     @Override
@@ -73,6 +82,15 @@ public class UserHandler implements BaseHandler<User> {
             nps.executeQuery();
         }
         return true;
+    }
+
+    @Override
+    public User fill(ResultSet rs) throws SQLException {
+        User user = new User();
+        user.setId(rs.getInt("id"));
+        user.setUsername(rs.getString("username"));
+        user.setPassword(rs.getString("password"));
+        return user;
     }
 
 }

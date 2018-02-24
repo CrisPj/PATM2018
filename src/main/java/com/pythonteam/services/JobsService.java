@@ -32,12 +32,13 @@ public class JobsService implements ServiceInterface<Job> {
     }
 
     @Override
-    public Response update(int id) {
+    public Response update(Job job) {
         return null;
     }
 
     @Override
-    public Response delete(int id) {
+    public Response delete(Job job) {
         return null;
     }
+
 }
