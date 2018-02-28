@@ -6,7 +6,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-class Database {
+public class Database {
 
     private static final HikariDataSource ds;
 
@@ -19,7 +19,7 @@ class Database {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl("jdbc:mysql://localhost:3306/cursos");
         config.setUsername("root");
-        config.setPassword("123");
+        config.setPassword("password");
         config.setMaximumPoolSize(2);
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");

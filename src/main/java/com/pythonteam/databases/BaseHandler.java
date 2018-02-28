@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-interface BaseHandler<T> {
+public interface BaseHandler<T> {
 
     List<T> findAll() throws SQLException;
     T findOne(int id) throws SQLException;

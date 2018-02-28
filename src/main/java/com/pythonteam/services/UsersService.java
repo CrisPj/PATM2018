@@ -3,8 +3,6 @@ package com.pythonteam.services;
 import com.pythonteam.databases.UserHandler;
 import com.pythonteam.models.User;
 
-import javax.ws.rs.DELETE;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
@@ -37,7 +35,7 @@ public class UsersService implements ServiceInterface<User> {
 
 
     @Override
-    public Response read(int id) {
+    public Response read(@PathParam("id") int id) {
         try {
             User user = new UserHandler().findOne(id);
             if (user == null)
@@ -49,7 +47,7 @@ public class UsersService implements ServiceInterface<User> {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
-    @Override
+   /* @Override
     public Response update(User user){
         try {
             return  Response.ok(new UserHandler().update(user), MediaType.APPLICATION_JSON).build();
@@ -58,9 +56,11 @@ public class UsersService implements ServiceInterface<User> {
         }
         return Response.status(Response.Status.NOT_FOUND).build();
     }
-
+    */
+/*
     @Override
     public Response delete(User user) {
         return null;
     }
+    */
 }

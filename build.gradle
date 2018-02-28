@@ -3,19 +3,31 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'war'
+apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
 
 sourceCompatibility = 1.8
+gretty {
+    // ...
+    servletContainer = 'tomcat8'
+    httpsEnabled = true
+    realm 'auth'
+    realmConfigFile 'tomcat-users.xml'
+    // ...
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+
     compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.26-b03'
     compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.2.1'
-    compile group: 'com.zaxxer', name: 'HikariCP', version: '2.7.6'
+    compile group: 'com.zaxxer', name: 'HikariCP', version: '2.7.8'
     compile group: 'org.glassfish.jersey.core', name: 'jersey-common', version: '2.26-b03'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
     compile group: 'org.glassfish.jersey.bundles.repackaged', name: 'jersey-guava', version: '2.26-b03'
     compile group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: '2.26-b03'
 }
+
+
