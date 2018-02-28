@@ -1,6 +1,8 @@
 package com.pythonteam.databases;
 
 import com.pythonteam.models.Token;
+import com.pythonteam.models.User;
+import com.pythonteam.util.Hash;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -42,14 +44,20 @@ public class TokenHandler implements BaseHandler<Token>{
 
     @Override
     public boolean create(Token token) throws SQLException {
+        return false;
+    }
+
+    public String create(User user) throws SQLException {
+
+        new UserHandler().checkPass(user);
         String sql = "INSERT INTO token(token) VALUES (:token);";
-        String tokenHash = "asD";
+        String tokenHash = new Hash().encriptar(user.getUsername(),user.getPassword());
         try (Connection conn = Database.getConnection()) {
             NamedParameterStatement nps = new NamedParameterStatement(conn, sql);
             nps.setString("token", tokenHash);
             nps.executeQuery();
         }
-        return true;
+        return "{\"token\": \""+ tokenHash + "\"}";
     }
 
     @Override

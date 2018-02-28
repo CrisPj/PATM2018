@@ -93,4 +93,13 @@ public class UserHandler implements BaseHandler<User> {
         return user;
     }
 
+    public User checkPass(User user) throws SQLException {
+        String sql = "select user where username = :username, password = :password";
+        try (Connection conn = Database.getConnection()) {
+            NamedParameterStatement nps = new NamedParameterStatement(conn, sql);
+            nps.setString("username",user.getUsername());
+            nps.setString("password",user.getPassword());
+        }
+        return user;
+    }
 }
