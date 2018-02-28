@@ -19,16 +19,8 @@ public class EmployeeHandler implements BaseHandler<Employee> {
             ResultSet rs = nps.executeQuery();
 
             while (rs.next()) {
-                Employee employee = new Employee();
-                employee.setId(rs.getInt("id"));
-                employee.setName(rs.getString("name"));
-                employee.setPaternalName(rs.getString("paternalName"));
-                employee.setMaternalName(rs.getString("maternalName"));
-                employee.setBirthday(rs.getDate("birthday"));
-                employee.setEmail(rs.getString("email"));
-                employee.setJobId(rs.getInt("jobId"));
-                employee.setUserId(rs.getInt("userId"));
-                employees.add(employee);
+
+                employees.add(fill(rs));
             }
         }
         return employees;
@@ -56,6 +48,15 @@ public class EmployeeHandler implements BaseHandler<Employee> {
 
     @Override
     public Employee fill(ResultSet rs) throws SQLException {
-        return null;
+        Employee employee = new Employee();
+        employee.setId(rs.getInt("id"));
+        employee.setName(rs.getString("name"));
+        employee.setPaternalName(rs.getString("paternalName"));
+        employee.setMaternalName(rs.getString("maternalName"));
+        employee.setBirthday(rs.getDate("birthday"));
+        employee.setEmail(rs.getString("email"));
+        employee.setJobId(rs.getInt("jobId"));
+        employee.setUserId(rs.getInt("userId"));
+        return employee;
     }
 }

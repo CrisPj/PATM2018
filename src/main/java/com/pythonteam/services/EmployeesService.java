@@ -36,7 +36,7 @@ public class EmployeesService implements ServiceInterface<Employee> {
     }
 
     @Override
-    public Response delete(Employee employee) {
+    public Response delete(int id) {
         return null;
     }
 

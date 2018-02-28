@@ -59,7 +59,7 @@ public class UsersService implements ServiceInterface<User> {
 
 
     @Override
-    public Response delete(User user) {
+    public Response delete(int id) {
         return null;
     }
 
