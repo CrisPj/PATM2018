@@ -35,7 +35,7 @@ public class UsersService implements ServiceInterface<User> {
 
 
     @Override
-    public Response read(@PathParam("id") int id) {
+    public Response read(int id) {
         try {
             User user = new UserHandler().findOne(id);
             if (user == null)
@@ -47,7 +47,7 @@ public class UsersService implements ServiceInterface<User> {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
-   /* @Override
+   @Override
     public Response update(User user){
         try {
             return  Response.ok(new UserHandler().update(user), MediaType.APPLICATION_JSON).build();
@@ -56,11 +56,11 @@ public class UsersService implements ServiceInterface<User> {
         }
         return Response.status(Response.Status.NOT_FOUND).build();
     }
-    */
-/*
+
+
     @Override
     public Response delete(User user) {
         return null;
     }
-    */
+
 }

@@ -31,14 +31,14 @@ public class JobsService implements ServiceInterface<Job> {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
-//    @Override
-//    public Response update(Job job) {
-//        return null;
-//    }
+    @Override
+    public Response update(Job job) {
+        return null;
+    }
 
-   /* @Override
+    @Override
     public Response delete(Job job) {
         return null;
     }
-*/
+
 }

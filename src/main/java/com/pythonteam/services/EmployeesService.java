@@ -30,14 +30,14 @@ public class EmployeesService implements ServiceInterface<Employee> {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
-//    @Override
-//    public Response update(Employee employee) {
-//        return null;
-//    }
+    @Override
+    public Response update(Employee employee) {
+        return null;
+    }
 
-//    @Override
-  //  public Response delete(Employee employee) {
-  //      return null;
-   // }
+    @Override
+    public Response delete(Employee employee) {
+        return null;
+    }
 
 }
