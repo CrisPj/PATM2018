@@ -1,4 +1,4 @@
-package com.pythonteam.services;
+package com.pythonteam.filters;
 
 import javax.ws.rs.NameBinding;
 import java.lang.annotation.Retention;

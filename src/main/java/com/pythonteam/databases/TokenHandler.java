@@ -19,7 +19,7 @@ public class TokenHandler implements BaseHandler<Token>{
         return null;
     }
 
-    public Token findOne(String token) throws SQLException {
+    public Token findOne(String token) {
         return Database.getJdbi().withExtension(TokenDao.class, dao-> dao.findOne(token));
     }
 
@@ -41,7 +41,6 @@ public class TokenHandler implements BaseHandler<Token>{
     public String create(User user) throws SQLException {
         if (new UserHandler().checkPass(user) != null)
         {
-            String sql = "";
             String tokenHash = new Hash().encriptar(user.getUsername(),user.getPassword());
             Database.getJdbi().withExtension(TokenDao.class, dao -> dao.create(tokenHash));
             return "{\"token\": \""+ tokenHash + "\"}";

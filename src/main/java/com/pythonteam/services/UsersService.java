@@ -1,6 +1,7 @@
 package com.pythonteam.services;
 
 import com.pythonteam.databases.UserHandler;
+import com.pythonteam.filters.TokenSecured;
 import com.pythonteam.models.User;
 
 import javax.ws.rs.Path;

@@ -1,6 +1,7 @@
 package com.pythonteam.services;
 
 import com.pythonteam.databases.JobHandler;
+import com.pythonteam.filters.TokenSecured;
 import com.pythonteam.models.Job;
 
 import javax.ws.rs.Path;

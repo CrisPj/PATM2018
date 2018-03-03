@@ -1,4 +1,4 @@
-package com.pythonteam.services;
+package com.pythonteam.filters;
 
 import com.pythonteam.databases.TokenHandler;
 
