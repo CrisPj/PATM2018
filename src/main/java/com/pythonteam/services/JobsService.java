@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response;
 @Path("/jobs")
 public class JobsService implements ServiceInterface<Job> {
 
+    @TokenSecured
     @Override
     public Response readAll() {
         return  Response.ok(new JobHandler().findAll(), MediaType.APPLICATION_JSON).build();

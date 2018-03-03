@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response;
 @Path("/companies")
 public class CompanyService implements ServiceInterface<Company> {
 
+    @TokenSecured
     @Override
     public Response readAll() {
         return  Response.ok(new CompanyHandler().findAll(), MediaType.APPLICATION_JSON).build();

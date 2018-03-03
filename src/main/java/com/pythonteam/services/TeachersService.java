@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response;
 @Path("/teachers")
 public class TeachersService implements ServiceInterface<Teacher> {
 
+    @TokenSecured
     @Override
     public Response readAll() {
         return  Response.ok(new TeacherHandler().findAll(), MediaType.APPLICATION_JSON).build();
