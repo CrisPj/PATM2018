@@ -1,106 +1,37 @@
 package com.pythonteam.databases;
 
+import com.pythonteam.dao.UserDao;
 import com.pythonteam.models.User;
 
-import javax.inject.Named;
-import javax.naming.Name;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class UserHandler implements BaseHandler<User> {
     @Override
-    public List<User> findAll() throws SQLException {
-        List<User> users = new ArrayList<>();
-        String sql = "SELECT * FROM user";
-        try (Connection conn = Database.getConnection())
-        {
-             NamedParameterStatement nps = new NamedParameterStatement(conn, sql);
-             ResultSet rs = nps.executeQuery();
-
-            while (rs.next()) {
-                users.add(fill(rs));
-            }
-            rs.close();
-        }
-        return users;
+    public List<User> findAll() {
+        return Database.getJdbi().withExtension(UserDao.class, UserDao::list);
     }
 
     @Override
-    public User findOne(int id) throws SQLException {
-        String sql = "select * from user where id = :id";
-        try (Connection conn = Database.getConnection())
-        {
-            NamedParameterStatement nps = new NamedParameterStatement(conn, sql);
-            nps.setInt("id",id);
-            ResultSet rs = nps.executeQuery();
-            if (rs.next()) {
-                User a = fill(rs);
-                rs.close();
-                return a;
-            }
-        }
-        return null;
-    }
-
-
-
-    @Override
-    public boolean delete(int id) throws SQLException {
-        String sql = "delete from user where id = :id";
-        try (Connection conn = Database.getConnection()) {
-            NamedParameterStatement nps = new NamedParameterStatement(conn,sql);
-            nps.setInt("id",id);
-            nps.executeQuery();
-        }
-        return true;
+    public User findOne(int id) {
+        return Database.getJdbi().withExtension(UserDao.class, dao -> dao.findOne(id));
     }
 
     @Override
-    public User update(User user) throws SQLException {
-        String sql = "update user set username = :username, password = :password where id = :id";
-        try (Connection conn = Database.getConnection()) {
-            NamedParameterStatement nps = new NamedParameterStatement(conn, sql);
-            nps.setString("username",user.getUsername());
-            nps.setString("password",user.getPassword());
-            nps.setInt("id",user.getId());
-            nps.execute();
-        }
-        return user;
+    public boolean delete(int id) {
+        return Database.getJdbi().withExtension(UserDao.class, dao-> dao.delete(id));
     }
 
     @Override
-    public boolean create(User user) throws SQLException {
-        String sql = "INSERT INTO user(username, password) VALUES (:user,:password);";
-        try (Connection conn = Database.getConnection())
-        {
-            NamedParameterStatement nps = new NamedParameterStatement(conn, sql);
-            nps.setString("user", user.getUsername());
-            nps.setString("password", user.getPassword());
-            nps.executeQuery();
-        }
-        return true;
+    public User update(User user) {
+        return Database.getJdbi().withExtension(UserDao.class, dao -> dao.update(user.getUsername(),user.getPassword()));
     }
 
     @Override
-    public User fill(ResultSet rs) throws SQLException {
-        User user = new User();
-        user.setId(rs.getInt("id"));
-        user.setUsername(rs.getString("username"));
-        user.setPassword(rs.getString("password"));
-        return user;
+    public boolean create(User user) {
+        return Database.getJdbi().withExtension(UserDao.class, dao -> dao.create(user.getUsername(),user.getPassword()));
     }
 
-    public User checkPass(User user) throws SQLException {
-        String sql = "select user where username = :username, password = :password";
-        try (Connection conn = Database.getConnection()) {
-            NamedParameterStatement nps = new NamedParameterStatement(conn, sql);
-            nps.setString("username",user.getUsername());
-            nps.setString("password",user.getPassword());
-        }
-        return user;
+    public User checkPass(User user) {
+        return Database.getJdbi().withExtension(UserDao.class, dao -> dao.check(user.getUsername(), user.getPassword()));
     }
 }

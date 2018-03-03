@@ -22,12 +22,7 @@ public class EmployeesService implements ServiceInterface<Employee> {
 
     @Override
     public Response readAll() {
-        try {
-            return  Response.ok(new EmployeeHandler().findAll(), MediaType.APPLICATION_JSON).build();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return Response.status(Response.Status.NOT_FOUND).build();
+            return Response.ok(new EmployeeHandler().findAll(), MediaType.APPLICATION_JSON).build();
     }
 
     @Override

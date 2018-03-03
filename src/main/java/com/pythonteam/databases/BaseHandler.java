@@ -1,15 +1,12 @@
 package com.pythonteam.databases;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 public interface BaseHandler<T> {
 
-    List<T> findAll() throws SQLException;
-    T findOne(int id) throws SQLException;
-    boolean delete(int id) throws SQLException;
-    T update(T t) throws SQLException;
-    boolean create(T t) throws SQLException;
-    T fill(ResultSet rs) throws SQLException;
+    List<T> findAll();
+    T findOne(int id);
+    boolean delete(int id);
+    T update(T t);
+    boolean create(T t);
 }

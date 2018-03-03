@@ -2,13 +2,13 @@ package com.pythonteam.databases;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-
-import java.sql.Connection;
-import java.sql.SQLException;
+import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
 public class Database {
 
     private static final HikariDataSource ds;
+    private static Jdbi jdbi;
 
     static {
         try {
@@ -26,15 +26,11 @@ public class Database {
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
 
         ds = new HikariDataSource(config);
+        jdbi = Jdbi.create(ds);
+        jdbi.installPlugin(new SqlObjectPlugin());
     }
 
-    public static Connection getConnection() throws SQLException {
-        return ds.getConnection();
+    public static Jdbi getJdbi(){
+        return jdbi;
     }
-
-    public void closeConnection()
-    {
-        ds.close();
-    }
-
 }

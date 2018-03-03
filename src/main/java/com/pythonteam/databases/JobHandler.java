@@ -1,5 +1,6 @@
 package com.pythonteam.databases;
 
+import com.pythonteam.dao.JobDao;
 import com.pythonteam.models.Job;
 
 import java.sql.Connection;
@@ -10,58 +11,28 @@ import java.util.List;
 
 public class JobHandler implements BaseHandler<Job>  {
     @Override
-    public List<Job> findAll() throws SQLException {
-        List<Job> jobs = new ArrayList<>();
-        String sql = "SELECT * FROM job";
-        try (Connection conn = Database.getConnection())
-        {
-            NamedParameterStatement nps = new NamedParameterStatement(conn, sql);
-            ResultSet rs = nps.executeQuery();
-
-            while (rs.next()) {
-                Job job = new Job();
-                job.setId(rs.getInt("id"));
-                job.setJob(rs.getString("job"));
-                jobs.add(job);
-            }
-        }
-        return jobs;
+    public List<Job> findAll() {
+        return Database.getJdbi().withExtension(JobDao.class, JobDao::list);
     }
 
     @Override
-    public Job findOne(int id) throws SQLException {
-        String sql = "select * from job where id = '"+id+"';";
-        try (Connection conn = Database.getConnection())
-        {
-            NamedParameterStatement nps = new NamedParameterStatement(conn, sql);
-            ResultSet rs = nps.executeQuery();
-            if (rs.next()) {
-                Job job = new Job();
-                job.setId(rs.getInt("id"));
-                job.setJob(rs.getString("job"));
-                return job;
-            }
-        }
-        return null;
+    public Job findOne(int id) {
+        return Database.getJdbi().withExtension(JobDao.class, dao -> dao.findOne(id));
     }
 
     @Override
-    public boolean delete(int id) throws SQLException {
+    public boolean delete(int id) {
         return true;
     }
 
     @Override
-    public Job update(Job job) throws SQLException {
+    public Job update(Job job) {
         return null;
     }
 
     @Override
-    public boolean create(Job job) throws SQLException {
+    public boolean create(Job job) {
         return true;
     }
 
-    @Override
-    public Job fill(ResultSet rs) throws SQLException {
-        return null;
-    }
 }
