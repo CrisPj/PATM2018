@@ -67,6 +67,7 @@ public class UserHandler implements BaseHandler<User> {
             nps.setString("username",user.getUsername());
             nps.setString("password",user.getPassword());
             nps.setInt("id",user.getId());
+            nps.execute();
         }
         return user;
     }

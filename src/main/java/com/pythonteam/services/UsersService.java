@@ -4,7 +4,6 @@ import com.pythonteam.databases.UserHandler;
 import com.pythonteam.models.User;
 
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
@@ -12,7 +11,7 @@ import java.sql.SQLException;
 @Path("/users")
 public class UsersService implements ServiceInterface<User> {
 
-
+    @TokenSecured
     @Override
     public Response readAll() {
         try {
@@ -23,6 +22,7 @@ public class UsersService implements ServiceInterface<User> {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
+    @TokenSecured
     @Override
     public Response create(User user) {
         try {
@@ -34,6 +34,7 @@ public class UsersService implements ServiceInterface<User> {
     }
 
 
+    @TokenSecured
     @Override
     public Response read(int id) {
         try {
@@ -47,7 +48,8 @@ public class UsersService implements ServiceInterface<User> {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
-   @Override
+    @TokenSecured
+    @Override
     public Response update(User user){
         try {
             return  Response.ok(new UserHandler().update(user), MediaType.APPLICATION_JSON).build();
@@ -57,10 +59,14 @@ public class UsersService implements ServiceInterface<User> {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
-
+    @TokenSecured
     @Override
     public Response delete(int id) {
-        return null;
+        try {
+            return  Response.ok(new UserHandler().delete(id), MediaType.APPLICATION_JSON).build();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
-
 }

@@ -1,7 +1,6 @@
 package com.pythonteam.services;
 
 import com.pythonteam.databases.TokenHandler;
-import com.pythonteam.databases.UserHandler;
 import com.pythonteam.models.User;
 
 import javax.ws.rs.Path;
@@ -11,8 +10,13 @@ import java.sql.SQLException;
 
 @Path("/login")
 public class TokensService implements ServiceInterface<User> {
+
     @Override
     public Response create(User user) {
+        if (user == null)
+        {
+            return Response.serverError().entity("User no puede ir vacio").build();
+        }
         try {
             return  Response.ok(new TokenHandler().create(user), MediaType.APPLICATION_JSON).build();
         } catch (SQLException e) {

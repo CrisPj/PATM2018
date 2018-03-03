@@ -17,11 +17,15 @@ public class TokenHandler implements BaseHandler<Token>{
 
     @Override
     public Token findOne(int id) throws SQLException {
+        return null;
+    }
+
+    public Token findOne(String token) throws SQLException {
         String sql = "select * from token where token = :token";
         try (Connection conn = Database.getConnection())
         {
             NamedParameterStatement nps = new NamedParameterStatement(conn, sql);
-            nps.setInt("token",id);
+            nps.setString("token",token);
             ResultSet rs = nps.executeQuery();
             if (rs.next()) {
                 Token t = fill(rs);
@@ -48,7 +52,6 @@ public class TokenHandler implements BaseHandler<Token>{
     }
 
     public String create(User user) throws SQLException {
-
         new UserHandler().checkPass(user);
         String sql = "INSERT INTO token(token) VALUES (:token);";
         String tokenHash = new Hash().encriptar(user.getUsername(),user.getPassword());
