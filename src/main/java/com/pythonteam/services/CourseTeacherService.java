@@ -4,10 +4,7 @@ import com.pythonteam.databases.CourseTeacherHandler;
 import com.pythonteam.filters.TokenSecured;
 import com.pythonteam.models.CourseTeacher;
 
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -37,7 +34,6 @@ public class CourseTeacherService implements ServiceInterface<CourseTeacher> {
 
     @TokenSecured
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{id}")
     public Response read(@QueryParam("id") int id,@QueryParam("id2") int id2) {
         CourseTeacher courseTeacher = new CourseTeacherHandler().findOne(id,id2);
         if (courseTeacher == null)
@@ -52,9 +48,15 @@ public class CourseTeacherService implements ServiceInterface<CourseTeacher> {
         return  Response.ok(new CourseTeacherHandler().update(courseTeacher), MediaType.APPLICATION_JSON).build();
     }
 
-    @TokenSecured
     @Override
     public Response delete(int id) {
+        return null;
+    }
+
+    @TokenSecured
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response delete(@QueryParam("id") int id,@QueryParam("id2") int id2) {
         boolean response = new CourseTeacherHandler().delete(id);
         if (response){
             return  Response.ok(true, MediaType.APPLICATION_JSON).build();

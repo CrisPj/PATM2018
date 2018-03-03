@@ -21,8 +21,13 @@ public class CourseTeacherHandler implements BaseHandler<CourseTeacher>  {
     }
 
     @Override
-    public boolean delete(int id) {
-        return Database.getJdbi().withExtension(CourseTeacherDao.class,dao -> dao.delete(id));
+    public boolean delete(int id){
+        return false;
+    }
+
+
+    public boolean delete(int id,int id2) {
+        return Database.getJdbi().withExtension(CourseTeacherDao.class,dao -> dao.delete(id,id2));
     }
 
     @Override

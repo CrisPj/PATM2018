@@ -29,10 +29,10 @@ public interface CourseTeacherDao {
     @SqlUpdate("INSERT INTO courseTeacher(idCourse, idTeacher, startDate, endDate) VALUES (:idCourse, :idTeacher, :startDate, :endDate);")
     boolean create(@Bind("idCourse") int idCourse, @Bind("idTeacher") int idteacher, @Bind("startDate") Date startDate, @Bind("endDate") Date endDate);
 
-    @SqlUpdate("delete from courseTeacher where id = :id")
-    boolean delete(@Bind("id") int id);
+    @SqlUpdate("delete from courseTeacher where idCourse = :idCourse and idTeacher = :idTeacher")
+    boolean delete(@Bind("idCourse") int idCourse,  @Bind("idTeacher") int idTeacher);
 
-    @SqlQuery("update courseTeacher set courseTeacher = :courseTeacher where idCourse = :idCourse and idTeacher = :idTeacher")
+    @SqlQuery("update courseTeacher set startDate = :startDate, endDate = :endDate where idCourse = :idCourse and idTeacher = :idTeacher")
     @RegisterBeanMapper(CourseTeacher.class)
     CourseTeacher update(@Bind("idCourse") int idCourse, @Bind("idTeacher") int idteacher, @Bind("startDate") Date startDate, @Bind("endDate") Date endDate);
 
