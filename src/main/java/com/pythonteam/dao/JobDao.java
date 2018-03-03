@@ -17,15 +17,15 @@ public interface JobDao {
     @RegisterBeanMapper(Job.class)
     Job findOne(@Bind("id") int id);
 
-    @SqlUpdate("INSERT INTO job(jobname, password) VALUES (:job,:password);")
-    boolean create(@Bind("job") String jobname, @Bind("password") String password);
+    @SqlUpdate("INSERT INTO job(job) VALUES (:job);")
+    boolean create(@Bind("job") String jobname);
 
     @SqlUpdate("delete from job where id = :id")
     boolean delete(@Bind("id") int id);
 
-    @SqlQuery("update job set jobname = :jobname, password = :password where id = :id")
+    @SqlQuery("update job set job = :job where id = :id")
     @RegisterBeanMapper(Job.class)
-    Job update(@Bind("jobname") String jobname, @Bind("password") String password);
+    Job update(@Bind("id") int id, @Bind("job") String job);
 
 
 }

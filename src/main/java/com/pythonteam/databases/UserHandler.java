@@ -23,7 +23,7 @@ public class UserHandler implements BaseHandler<User> {
 
     @Override
     public User update(User user) {
-        return Database.getJdbi().withExtension(UserDao.class, dao -> dao.update(user.getUsername(),user.getPassword()));
+        return Database.getJdbi().withExtension(UserDao.class, dao -> dao.update(user.getId(), user.getUsername(),user.getPassword()));
     }
 
     @Override

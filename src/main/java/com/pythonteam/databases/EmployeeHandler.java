@@ -3,10 +3,6 @@ package com.pythonteam.databases;
 import com.pythonteam.dao.EmployeeDao;
 import com.pythonteam.models.Employee;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeHandler implements BaseHandler<Employee> {
@@ -17,21 +13,21 @@ public class EmployeeHandler implements BaseHandler<Employee> {
 
     @Override
     public Employee findOne(int id) {
-        return null;
+        return Database.getJdbi().withExtension(EmployeeDao.class, dao -> dao.findOne(id));
     }
 
     @Override
     public boolean delete(int id) {
-        return true;
+        return Database.getJdbi().withExtension(EmployeeDao.class,dao -> dao.delete(id));
     }
 
     @Override
     public Employee update(Employee employee) {
-        return null;
+        return Database.getJdbi().withExtension(EmployeeDao.class, dao -> dao.update(employee.getId(),employee.getName(), employee.getPaternalName(), employee.getMaternalName(), employee.getBirthday(), employee.getEmail(), employee.getJobId(), employee.getUserId()));
     }
 
     @Override
     public boolean create(Employee employee) {
-        return true;
+        return Database.getJdbi().withExtension(EmployeeDao.class, dao -> dao.create(employee.getName(), employee.getPaternalName(), employee.getMaternalName(), employee.getBirthday(), employee.getEmail(), employee.getJobId(), employee.getUserId()));
     }
     }
